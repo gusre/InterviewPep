@@ -30,4 +30,7 @@
   | 7 chars | 62^7 = 3.52T | ~964 years |                                       
                                                                                 
   → **7-character base62 code** provides ample headroom for decades of growth.  
-    
+
+### Why NoSQL for URL Shortener
+We choose a NoSQL database for a URL shortener because the access pattern is a simple **key → value lookup (shortCode → longURL)**, which key-value stores handle very efficiently. Systems like Amazon DynamoDB use hash-based partitioning to provide near **O(1) lookups**, unlike SQL databases such as MySQL that rely on B-tree indexes with **O(log n)** complexity. NoSQL also scales horizontally, making it suitable for billions of records with high read throughput. Since we don’t need joins or complex queries, SQL features become unnecessary overhead. This makes NoSQL a better fit for performance, scalability, and simplicity.
+
