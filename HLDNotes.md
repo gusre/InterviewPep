@@ -34,3 +34,20 @@
 ### Why NoSQL for URL Shortener
 We choose a NoSQL database for a URL shortener because the access pattern is a simple **key → value lookup (shortCode → longURL)**, which key-value stores handle very efficiently. Systems like Amazon DynamoDB use hash-based partitioning to provide near **O(1) lookups**, unlike SQL databases such as MySQL that rely on B-tree indexes with **O(log n)** complexity. NoSQL also scales horizontally, making it suitable for billions of records with high read throughput. Since we don’t need joins or complex queries, SQL features become unnecessary overhead. This makes NoSQL a better fit for performance, scalability, and simplicity.
 
+- **Redis**
+  - In memory key value store
+  - Very fast for simple operations like `GET`, `SET`, and `INCR`
+  - Best for cache, counters, sessions, and short lived hot data
+  - In Bitly, Redis is a good fit for the global counter and caching short code lookups
+
+- **Postgres**
+  - Relational database with durable storage on disk
+  - Good for tables, SQL queries, indexes, and uniqueness constraints
+  - Best for source of truth data
+  - In Bitly, Postgres is a good fit for the permanent mapping from short code to long URL
+
+- **Simple mental model**
+  - Redis is for speed
+  - Postgres is for durable storage
+  - You often use both together
+
